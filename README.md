@@ -2,14 +2,12 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, download [node.js](https://nodejs.org/) or later.
-Optional:
-
+- Download [node.js](https://nodejs.org/) or later.
 - Install [Homebrew](https://brew.sh/)
-- Then install yarn with brew (on the command line): `brew install yarn`
-  Then download next.js and all its required packages with: `npm install next@latest react@latest react-dom@latest
-`
-  Type `yarn install` to install dependencies.
+- Install yarn with brew (on the command line): `brew install yarn`
+- Install next.js and all its required packages with: `npm install next@latest react@latest react-dom@latest
+` 
+- Type `yarn install` to install dependencies.
 
 ## Next
 
