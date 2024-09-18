@@ -6,7 +6,10 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    fontFamily: {
+      beaufort: ["Beaufort", "sans-serif"],
+      spiegel: ["Spiegel", "sans-serif"]
+    },
   },
   plugins: [],
 };
