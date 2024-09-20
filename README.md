@@ -51,6 +51,14 @@ autobalancer/
 └── .env                         # Environment variables (e.g., Riot API key)
 ```
 
+## Project Flow
+1. copy paste chat log into app
+2. chat log parses from the join logs and adds people to a list of participating players (ignores messages, pops them out of list if player left the lobby)
+3. for each player in list: send to riot to get their puuid, use that to get summonerid, use that to get their rank, division, lp, level
+4. for each player, calculate their inhouse rating given rank division lp accountlevel and map it to another object
+5. balance that shit and put it in a 2 list for each team
+6. send that list to front end and have it display the teams
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
