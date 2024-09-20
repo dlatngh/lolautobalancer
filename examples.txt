@@ -1,0 +1,84 @@
+playerOne#Tag joined the lobby
+playerTwo#Tag joined the lobby
+random message
+fakePlayer#Tag joined the lobby
+playerThree#Tag joined the lobby
+playerFour#Tag joined the lobby
+playerFive#Tag joined the lobby
+random message
+fakePlayer#Tag left the lobby
+playerSix#Tag joined the lobby
+playerSeven#Tag joined the lobby
+playerEight#Tag joined the lobby
+fakePlayer#Tag joined the lobby
+playerNine#Tag joined the lobby
+playerTen#Tag joined the lobby
+fakePlayer#Tag left the lobby
+random message
+
+JSON after riot API fetches
+{ 
+  "playerOne#Tag" :  {
+      "rank" : "bronze",
+      "division" : 3,
+      "lp" : 46,
+      "accountLevel" : 331
+  },
+  "playerTwo#Tag" :  {
+    "rank" : "emerald",
+    "division" : 2,
+    "lp" : 17,
+    "accountLevel" : 259
+  },
+  "playerThree#Tag" :  {
+    "rank" : "silver",
+    "division" : 1,
+    "lp" : 99,
+    "accountLevel" : 124
+  },
+}
+
+JSON after calculating rating:
+{ 
+  "playerOne#Tag" :  {
+      "rating" : 123
+      "rank" : "bronze",
+      "division" : 3,
+      "lp" : 46,
+      "accountLevel" : 331
+  },
+  "playerTwo#Tag" :  {
+    "rating" : 789
+    "rank" : "emerald",
+    "division" : 2,
+    "lp" : 17,
+    "accountLevel" : 259
+  },
+  "playerThree#Tag" :  {
+    "rating" : 456
+    "rank" : "silver",
+    "division" : 1,
+    "lp" : 99,
+    "accountLevel" : 124
+  },
+}
+
+JSON after making 2 teams:
+{
+  "teams": {
+    "blue": [
+      { "player": "playerOne#Tag" },
+      { "player": "playerTwo#Tag" },
+      { "player": "playerThree#Tag" },
+      { "player": "playerFour#Tag" },
+      { "player": "playerFive#Tag" }
+    ],
+    "red": [
+      { "player": "playerSix#Tag" },
+      { "player": "playerSeven#Tag" },
+      { "player": "playerEight#Tag" },
+      { "player": "playerNine#Tag" },
+      { "player": "playerTen#Tag" }
+    ]
+  }
+}
