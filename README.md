@@ -3,7 +3,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 ## Getting Started
 
 - Download [node.js](https://nodejs.org/) or later.
-- Install [Homebrew](https://brew.sh/) (Homebrew installs the stuff you need that Apple)
+- Install [Homebrew](https://brew.sh/) (Homebrew installs the stuff you need that Apple didn't)
 - Install yarn with brew (on the command line): `brew install yarn`
 - Install next.js and all its required packages with: `npm install next@latest react@latest react-dom@latest
 ` 
