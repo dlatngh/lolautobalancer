@@ -38,10 +38,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 autobalancer/
 ├── app/                         
 │   └── api/                     # API routes for handling backend requests
-│       ├── process-chat/        # API route for processing the chat log
-│       │   └── route.js
-│       └── display-teams/       # API route to send balanced teams back to frontend
-│            └── route.js
+│       └── process-chat/        # API route for processing the chat log
+│           └── route.js
 ├── page.js                      # Main page 
 ├── components/                  # Reusable UI components for the frontend
 ├── lib/                         # Business logic and helper functions
