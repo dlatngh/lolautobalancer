@@ -8,7 +8,12 @@ module.exports = {
   theme: {
     fontFamily: {
       beaufort: ["Beaufort", "sans-serif"],
-      spiegel: ["Spiegel", "sans-serif"]
+      spiegel: ["Spiegel", "sans-serif"],
+    },
+    extend: {
+      backgroundImage: {
+        "sr-art": "url('~/public/sr-art.jpg')",
+      },
     },
   },
   plugins: [],
