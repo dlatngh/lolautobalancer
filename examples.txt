@@ -7,6 +7,7 @@ player Four#Tag joined the lobby
 player Five#Tag joined the lobby
 random message
 fakePlayer#Tag left the lobby
+spectator#Tag joined the lobby
 player Six#Tag joined the lobby
 player Seven#Tag joined the lobby
 player Eight#Tag joined the lobby
@@ -15,6 +16,7 @@ player Nine#Tag joined the lobby
 player Ten#Tag joined the lobby
 fakePlayer#Tag left the lobby
 random message
+
 
 JSON after riot API fetches
 { 

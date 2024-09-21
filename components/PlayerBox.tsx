@@ -3,6 +3,7 @@
 import { useState } from "react";
 import ParsedPlayer from "@/components/ParsedPlayer";
 import { placeholder } from "@/lib/utils";
+import Delete from "./Delete";
 
 export default function PlayerBox() {
   const [players, setPlayers] = useState<string[]>([]);
@@ -42,6 +43,12 @@ export default function PlayerBox() {
     setChatLog("");
   };
 
+  const removePlayer = (playerName: string) => {
+    setPlayers((prevPlayers) =>
+      prevPlayers.filter((player) => player !== playerName)
+    );
+  };
+
   return (
     <div className="flex flex-row items-center justify-center space-x-10">
       <div className="flex flex-col m-auto sm:space-y-2 w-96 h-96">
@@ -74,7 +81,16 @@ export default function PlayerBox() {
         </div>
         <div className="w-full h-full text-[#A09B8C] font-spiegel px-2 outline outline-gradient-to-r from-[#091428] to-[#0A1428] outline-[#C89B3C] bg-gradient-to-r overflow-auto">
           {players.map((playerName, i) => (
-            <ParsedPlayer key={i} playerName={playerName} i={i} />
+            <div
+              className={`flex justify between items-center h-[10%] border-[#C89B3C] ${
+                i !== players.length - 1 ? "border-b" : ""
+              }`}
+            >
+              <ParsedPlayer key={i} playerName={playerName} i={i} />
+              <button onClick={() => removePlayer(playerName)}>
+                <Delete />
+              </button>
+            </div>
           ))}
         </div>
       </div>
