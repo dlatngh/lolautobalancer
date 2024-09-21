@@ -12,6 +12,8 @@ player Seven#Tag joined the lobby
 player Eight#Tag joined the lobby
 fakePlayer#Tag joined the lobby
 player Nine#Tag joined the lobby
+random message
+random message
 player Ten#Tag joined the lobby
 fakePlayer#Tag left the lobby
 random message
