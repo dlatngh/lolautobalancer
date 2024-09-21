@@ -1,1 +1,3 @@
-export function balanceTeams() {}
+export function balanceTeams() {
+  return;
+}

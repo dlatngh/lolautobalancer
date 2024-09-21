@@ -1,3 +1,3 @@
-export function calculateRating(participatingPlayers: void): void {
-    return participatingPlayers
+export function calculateRating(): void {
+  return;
 }
