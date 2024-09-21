@@ -1,18 +1,18 @@
-playerOne#Tag joined the lobby
-playerTwo#Tag joined the lobby
+player One#Tag joined the lobby
+player Two#Tag joined the lobby
 random message
 fakePlayer#Tag joined the lobby
-playerThree#Tag joined the lobby
-playerFour#Tag joined the lobby
-playerFive#Tag joined the lobby
+player Three#Tag joined the lobby
+player Four#Tag joined the lobby
+player Five#Tag joined the lobby
 random message
 fakePlayer#Tag left the lobby
-playerSix#Tag joined the lobby
-playerSeven#Tag joined the lobby
-playerEight#Tag joined the lobby
+player Six#Tag joined the lobby
+player Seven#Tag joined the lobby
+player Eight#Tag joined the lobby
 fakePlayer#Tag joined the lobby
-playerNine#Tag joined the lobby
-playerTen#Tag joined the lobby
+player Nine#Tag joined the lobby
+player Ten#Tag joined the lobby
 fakePlayer#Tag left the lobby
 random message
 

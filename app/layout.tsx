@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "League Customs Autobalancer",
-  description: "5v5s",
+  description: "An autobalancing tool for your League of Legends custom 5v5 lobbies.",
 };
 
 export default function RootLayout({
