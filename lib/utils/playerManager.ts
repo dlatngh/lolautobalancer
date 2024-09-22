@@ -1,15 +1,23 @@
+<<<<<<< HEAD
 import { ClientError } from "./errors";
 
 const JOIN_LOG = "GameName #Tag joined the lobby";
 const JOINED = "joined";
 const LEFT = "left";
 
+=======
+>>>>>>> 783a4b9 (refactoring)
 export function generatePlaceholder(): string {
   let placeHolder: string = "";
   const limit = 13;
   for (let i = 0; i < limit; i++) {
+<<<<<<< HEAD
     if (i != limit - 1) placeHolder += JOIN_LOG + "\n";
     else placeHolder += JOIN_LOG;
+=======
+    if (i != limit - 1) placeHolder += "GameName#Tag has joined the lobby\n";
+    else placeHolder += "GameName#Tag has joined the lobby";
+>>>>>>> 783a4b9 (refactoring)
   }
   return placeHolder;
 }
@@ -19,8 +27,13 @@ export const parsePlayersFromChatLog = (chatLog: string): string[] => {
   const lines = chatLog.split("\n");
 
   lines.forEach((line) => {
+<<<<<<< HEAD
     const joinMatch = extractPlayerName(line, JOINED);
     const leaveMatch = extractPlayerName(line, LEFT);
+=======
+    const joinMatch = extractPlayerName(line, "joined");
+    const leaveMatch = extractPlayerName(line, "left");
+>>>>>>> 783a4b9 (refactoring)
 
     if (joinMatch && !newPlayers.includes(joinMatch)) {
       newPlayers.push(joinMatch);
@@ -34,6 +47,7 @@ export const parsePlayersFromChatLog = (chatLog: string): string[] => {
   return newPlayers;
 };
 
+<<<<<<< HEAD
 export function validatePlayerList(playerList: string[]) {
   if (playerList.length < 2) {
     throw new ClientError(
@@ -67,6 +81,11 @@ const extractPlayerName = (line: string, action: string): string | null => {
   }
 
   return null;
+=======
+const extractPlayerName = (line: string, action: string): string | null => {
+  const match = line.match(new RegExp(`(.+?#\\w+) ${action} the lobby`));
+  return match ? match[1] : null;
+>>>>>>> 783a4b9 (refactoring)
 };
 
 const removePlayerFromList = (players: string[], playerName: string) => {

@@ -3,12 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ParsedPlayer from "@/components/ParsedPlayer";
-<<<<<<< HEAD
 import Delete from "./global/Delete";
-=======
-<<<<<<< HEAD
-import Delete from "./Delete";
->>>>>>> 5de63ce (added feature to delete players)
 import {
   generatePlaceholder,
   parsePlayersFromChatLog,
@@ -16,15 +11,7 @@ import {
 } from "@/lib/utils/playerManager";
 import { ClientError } from "@/lib/utils/errors";
 import ErrorAlert from "./ErrorAlert";
-<<<<<<< HEAD
 import Loading from "@/app/loading";
-=======
-import { useRouter } from "next/navigation";
-=======
-import { placeholder } from "@/lib/utils";
-import Delete from "./Delete";
->>>>>>> a124c64 (added feature to delete players)
->>>>>>> 5de63ce (added feature to delete players)
 
 export default function PlayerBox() {
   const [players, setPlayers] = useState<string[]>([]);
@@ -53,7 +40,6 @@ export default function PlayerBox() {
     );
   };
 
-<<<<<<< HEAD
   const handleBalance = async () => {
     const playerList = players;
     try {
@@ -87,8 +73,6 @@ export default function PlayerBox() {
     }
   };
 
-=======
->>>>>>> a124c64 (added feature to delete players)
   return (
     <div className="flex flex-col">
       {loading ? (
@@ -161,7 +145,6 @@ export default function PlayerBox() {
               </button>
             </div>
           </div>
-<<<<<<< HEAD
           {isErrorOpen && (
             <ErrorAlert
               title="Error"
@@ -170,44 +153,6 @@ export default function PlayerBox() {
             />
           )}
         </>
-=======
-        </div>
-<<<<<<< HEAD
-      </div>
-      <div className="flex items-center justify-center py-10 pb-16 ">
-        <div className="border-black border-4 outline outline-gradient-to-r outline-[#C89B3C] ">
-          <button
-            type="button"
-            className="bg-[#1E282D] px-14 py-3 text-2xl font-beaufort uppercase font-bold text-[#C8AA6E] hover:bg-[#1E2328]"
-            onClick={handleBalance}
-          >
-            Balance
-          </button>
-=======
-        <div className="w-full h-full text-[#A09B8C] font-spiegel px-2 outline outline-gradient-to-r from-[#091428] to-[#0A1428] outline-[#C89B3C] bg-gradient-to-r overflow-auto">
-          {players.map((playerName, i) => (
-            <div
-              className={`flex justify between items-center h-[10%] border-[#C89B3C] ${
-                i !== players.length - 1 ? "border-b" : ""
-              }`}
-            >
-              <ParsedPlayer key={i} playerName={playerName} i={i} />
-              <button onClick={() => removePlayer(playerName)}>
-                <Delete />
-              </button>
-            </div>
-          ))}
->>>>>>> a124c64 (added feature to delete players)
-        </div>
-      </div>
-
-      {isErrorOpen && (
-        <ErrorAlert
-          title="Error"
-          message={error || "An unexpected error occurred."}
-          onClose={() => setIsErrorOpen(false)}
-        />
->>>>>>> 5de63ce (added feature to delete players)
       )}
     </div>
   );
