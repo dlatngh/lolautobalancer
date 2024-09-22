@@ -1,6 +1,5 @@
 interface ParsedPlayerProps {
   playerName: string;
-  i: number;
 }
 export default function ParsedPlayer(
   props: ParsedPlayerProps
