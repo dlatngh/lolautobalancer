@@ -1,10 +1,26 @@
 import { fetchElo } from "@/lib/riot/fetchElo";
 import { NextResponse } from "next/server";
+type SummonerInfo = {
+  summonerLevel: number;
+  profileIconId: number;
+} | null;
+
+type LeagueInfo = {
+  tier: string;
+  division: string;
+  leaguePoints: number;
+} | null;
+
+type Player = {
+  playerName: string;
+  summonerInfo: SummonerInfo;
+  leagueInfo?: LeagueInfo;
+};
 
 type Data = {
   status: number;
   message: string;
-  lobby?: any;
+  lobby?: Player[];
 };
 
 type Payload = {
