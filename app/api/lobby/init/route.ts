@@ -1,6 +1,9 @@
 import { fetchElo } from "@/lib/riot/fetchElo";
 import { NextResponse } from "next/server";
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c36aebe (success build)
 type SummonerInfo = {
   summonerLevel: number;
   profileIconId: number;
@@ -17,17 +20,24 @@ type Player = {
   summonerInfo: SummonerInfo;
   leagueInfo?: LeagueInfo;
 };
+<<<<<<< HEAD
 =======
 >>>>>>> 87971fd (added confirm lobby page)
+=======
+>>>>>>> c36aebe (success build)
 
 type Data = {
   status: number;
   message: string;
 <<<<<<< HEAD
+<<<<<<< HEAD
   lobby?: Player[];
 =======
   lobby?: any;
 >>>>>>> 87971fd (added confirm lobby page)
+=======
+  lobby?: Player[];
+>>>>>>> c36aebe (success build)
 };
 
 type Payload = {

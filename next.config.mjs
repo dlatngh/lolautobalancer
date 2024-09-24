@@ -8,11 +8,17 @@ const nextConfig = {
     ],
   },
 <<<<<<< HEAD
+<<<<<<< HEAD
   experimental: {
     missingSuspenseWithCSRBailout: false,
   },
 =======
 >>>>>>> 87971fd (added confirm lobby page)
+=======
+  experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
+>>>>>>> c36aebe (success build)
 };
 
 export default nextConfig;
