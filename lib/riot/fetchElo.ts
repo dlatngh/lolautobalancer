@@ -5,7 +5,11 @@ import {
 } from "./riotApiLibrary";
 
 export async function fetchElo(playerList: string[]) {
+<<<<<<< HEAD
   const playersData = await Promise.all(
+=======
+  let playersData = await Promise.all(
+>>>>>>> 87971fd (added confirm lobby page)
     playerList.map(async (player) => {
       try {
         const puuid = await getPuuidByAccount(player);

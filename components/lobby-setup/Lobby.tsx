@@ -7,13 +7,22 @@ import { useEffect, useState } from "react";
 type Player = {
   playerName: string;
   summonerInfo?: {
+<<<<<<< HEAD
     summonerLevel?: number;
     profileIconId?: number;
+=======
+    summonerLevel?: number; // This could be undefined
+    profileIconId?: number; // This could be undefined
+>>>>>>> 87971fd (added confirm lobby page)
   } | null;
   leagueInfo?: {
     tier?: string;
     division?: string;
+<<<<<<< HEAD
     leaguePoints?: number;
+=======
+    leaguePoints?: number; // This could be undefined
+>>>>>>> 87971fd (added confirm lobby page)
   } | null;
 };
 
