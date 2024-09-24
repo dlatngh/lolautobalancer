@@ -1,24 +1,21 @@
-player One#Tag joined the lobby
-player Two#Tag joined the lobby
+xela #kenny joined the lobby
+gapped #ff15 joined the lobby
 random message
-fakePlayer#Tag joined the lobby
-player Three#Tag joined the lobby
-player Four#Tag joined the lobby
-player Five#Tag joined the lobby
+fakePlayer #Tag joined the lobby
+Andyvaleron #DND5e joined the lobby
+KC HondaSleep #Tired joined the lobby
+awn #NA1 joined the lobby
 random message
-fakePlayer#Tag left the lobby
-spectator one#Tag joined the lobby
-player Six#Tag joined the lobby
-player Seven#Tag joined the lobby
-player Eight#Tag joined the lobby
-fakePlayer#Tag joined the lobby
-player Nine#Tag joined the lobby
-spectator 2#Tag joined the lobby
+rhemie #80085 joined the lobby
+임수호 #임수호 joined the lobby
+squid #8008S joined the lobby
+AZN Wink XY #黄霄云 joined the lobby
+spectator 2 #Tag joined the lobby
+fakePlayer #Tag left the lobby
 random message
+AZN YOASOBI #vjay joined the lobby
 random message
-player Ten#Tag joined the lobby
-fakePlayer#Tag left the lobby
-random message
+
 
 
 JSON after riot API fetches
