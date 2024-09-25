@@ -6,13 +6,13 @@ import { useEffect, useState } from "react";
 type Player = {
   playerName: string;
   summonerInfo?: {
-    summonerLevel?: number; // This could be undefined
-    profileIconId?: number; // This could be undefined
+    summonerLevel?: number;
+    profileIconId?: number;
   } | null;
   leagueInfo?: {
     tier?: string;
     division?: string;
-    leaguePoints?: number; // This could be undefined
+    leaguePoints?: number;
   } | null;
 };
 
