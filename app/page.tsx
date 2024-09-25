@@ -1,9 +1,9 @@
-import Divider from "@/components/Divider";
+import Divider from "@/components/global/Divider";
 import PlayerBox from "@/components/PlayerBox";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-[#010A13] bg-opacity-95">
+    <>
       <div className="relative mx-auto flex max-w-3xl flex-col items-center px-6 text-center sm:pt-16 lg:px-0 justify-center">
         <div className="flex flex-col items-center text-5xl font-bold lg:text-6xl font-beaufort text-[#C89B3C] ">
           <h1 className="uppercase">League of Legends</h1>
@@ -15,6 +15,6 @@ export default function Home() {
       </div>
       <Divider />
       <PlayerBox />
-    </div>
+    </>
   );
 }

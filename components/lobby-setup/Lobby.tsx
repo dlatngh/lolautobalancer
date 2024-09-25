@@ -3,6 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import PlayerCard from "./PlayerCard";
 import { useEffect, useState } from "react";
+
 type Player = {
   playerName: string;
   summonerInfo?: {
@@ -16,7 +17,7 @@ type Player = {
   } | null;
 };
 
-export default function PreBalance() {
+export default function Lobby() {
   const lobbyParams = useSearchParams();
   const lobbyString = lobbyParams.get("lobby");
   const [lobby, setLobby] = useState<Player[]>([]);
