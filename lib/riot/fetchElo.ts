@@ -5,21 +5,13 @@ import {
 } from "./riotApiLibrary";
 
 export async function fetchElo(playerList: string[]) {
-<<<<<<< HEAD
-<<<<<<< HEAD
   const playersData = await Promise.all(
-=======
-  let playersData = await Promise.all(
->>>>>>> 87971fd (added confirm lobby page)
-=======
-  const playersData = await Promise.all(
->>>>>>> c36aebe (success build)
     playerList.map(async (player) => {
       try {
         const puuid = await getPuuidByAccount(player);
         const summonerInfo = await getSummonerByPuuid(puuid);
         const league = await getRankBySummonerId(summonerInfo.summonerId);
-        
+
         const summoner = {
           summonerLevel: summonerInfo.summonerLevel,
           profileIconId: summonerInfo.profileIconId,
