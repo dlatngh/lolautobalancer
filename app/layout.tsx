@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "League Customs Autobalancer",
-  description: "An autobalancing tool for your League of Legends custom 5v5 lobbies.",
+  title: "LoL Customs Autobalancer",
+  description:
+    "An autobalancing tool for your League of Legends custom lobbies.",
 };
 
 export default function RootLayout({
@@ -13,7 +14,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`bg-sr-art bg-no-repeat bg-cover bg-center bg-fixed antialiased`}>{children}</body>
+      <body
+        className={`bg-sr-art bg-no-repeat bg-cover bg-center bg-fixed antialiased`}
+      >
+        <div className="flex flex-col items-center justify-center min-h-screen bg-[#010A13] bg-opacity-95">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }

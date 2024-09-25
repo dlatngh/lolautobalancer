@@ -11,7 +11,7 @@ export async function fetchElo(playerList: string[]) {
         const puuid = await getPuuidByAccount(player);
         const summonerInfo = await getSummonerByPuuid(puuid);
         const league = await getRankBySummonerId(summonerInfo.summonerId);
-        
+
         const summoner = {
           summonerLevel: summonerInfo.summonerLevel,
           profileIconId: summonerInfo.profileIconId,

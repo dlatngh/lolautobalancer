@@ -1,5 +1,6 @@
 import { fetchElo } from "@/lib/riot/fetchElo";
 import { NextResponse } from "next/server";
+
 type SummonerInfo = {
   summonerLevel: number;
   profileIconId: number;
