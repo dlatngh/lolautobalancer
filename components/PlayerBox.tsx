@@ -12,7 +12,6 @@ import { ClientError } from "@/lib/utils/errors";
 import ErrorAlert from "./ErrorAlert";
 import { useRouter } from "next/navigation";
 
-
 export default function PlayerBox() {
   const [players, setPlayers] = useState<string[]>([]);
   const [chatLog, setChatLog] = useState<string>("");
