@@ -12,6 +12,7 @@ import {
 import { ClientError } from "@/lib/utils/errors";
 import ErrorAlert from "./ErrorAlert";
 import Loading from "@/app/loading";
+import Button from "./global/Button";
 
 export default function PlayerBox() {
   const [players, setPlayers] = useState<string[]>([]);
@@ -135,15 +136,7 @@ export default function PlayerBox() {
             </div>
           </div>
           <div className="flex items-center justify-center py-10 pb-16">
-            <div className="border-black border-4 outline outline-gradient-to-r outline-[#C89B3C]">
-              <button
-                type="button"
-                className="bg-[#1E282D] px-14 py-3 text-2xl font-beaufort uppercase font-bold text-[#C8AA6E] hover:bg-[#1E2328]"
-                onClick={handleBalance}
-              >
-                Balance
-              </button>
-            </div>
+            <Button action={handleBalance} buttonName="Balance" />
           </div>
           {isErrorOpen && (
             <ErrorAlert
