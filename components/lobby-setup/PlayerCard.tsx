@@ -9,16 +9,29 @@ interface PlayerCardProps {
   profileIconId: number;
   tier: string;
   division: string;
-  leaguePoints: number;
+  leaguePoints: number | null;
+  onChange: (formData: FormDataType) => void;
+}
+
+interface FormDataType {
+  tier: string;
+  division: string;
+  leaguePoints: number | null;
+  summonerLevel: number;
+  profileIconId: number;
 }
 
 export default function PlayerCard(props: PlayerCardProps) {
   const [version, setVersion] = useState("");
-  const [selectedTier, setSelectedTier] = useState<string>(
-    props.tier || "UNRANKED"
-  );
-  const nonDivisionTiers = ["CHALLENGER", "GRANDMASTER", "MASTER", "UNRANKED"];
+  const [formData, setFormData] = useState({
+    tier: props.tier || "UNRANKED",
+    division: props.division || "",
+    leaguePoints: props.leaguePoints,
+    summonerLevel: props.summonerLevel,
+    profileIconId: props.profileIconId,
+  });
 
+  const nonDivisionTiers = ["CHALLENGER", "GRANDMASTER", "MASTER", "UNRANKED"];
   const PFP_URL = `https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${props.profileIconId}.png`;
 
   useEffect(() => {
@@ -39,22 +52,44 @@ export default function PlayerCard(props: PlayerCardProps) {
     fetchData();
   }, []);
 
-  const handleTierChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedTier(e.target.value);
+  useEffect(() => {
+    if (formData.tier === "UNRANKED") {
+      setFormData((prevData) => ({
+        ...prevData,
+        leaguePoints: null,
+      }));
+    }
+    props.onChange(formData);
+  }, [formData]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   return (
-    <div className="flex flex-row h-1/5 space-x-5 m-2">
+    <div className="flex flex-row h-1/5 space-x-5 items-center py-1 px-3">
       <div>
         <Image
           src={PFP_URL}
           alt="profileIcon"
           width={125}
           height={125}
-          className="rounded-md"
+          className="border-2 border-[#C89B3C] rounded-full"
         />
       </div>
-      <div className="flex flex-col w-52 items-start text-center space-y-1 justify-center">
+      <div className="inline-flex flex-col min-w-60 items-start text-center space-y-1 justify-center">
         <h1 className="font-beaufort text-xl text-[#C89B3C]">
           {props.playerName}
         </h1>
@@ -62,9 +97,9 @@ export default function PlayerCard(props: PlayerCardProps) {
           <div className="flex flex-row space-x-3 items-start">
             <select
               id="rank"
-              name="rank"
-              value={selectedTier}
-              onChange={handleTierChange}
+              name="tier"
+              value={formData.tier}
+              onChange={handleSelectChange}
               className="from-[#091428] to-[#0A1428] bg-gradient-to-r text-[#C89B3C] p-1 rounded-md"
             >
               {Object.keys(Tiers)
@@ -76,11 +111,12 @@ export default function PlayerCard(props: PlayerCardProps) {
                 ))}
             </select>
 
-            {!nonDivisionTiers.includes(selectedTier) && (
+            {!nonDivisionTiers.includes(formData.tier) && (
               <select
                 id="division"
                 name="division"
-                defaultValue={props.division || "IV"}
+                value={formData.division}
+                onChange={handleSelectChange}
                 className="from-[#091428] to-[#0A1428] bg-gradient-to-r text-[#C89B3C] p-1 rounded-md"
               >
                 {Object.keys(Divisions)
@@ -99,17 +135,23 @@ export default function PlayerCard(props: PlayerCardProps) {
               type="text"
               id="summonerLevel"
               name="summonerLevel"
-              value={props.summonerLevel}
+              value={formData.summonerLevel}
+              onChange={handleInputChange}
               className="w-10 h-8 text-center from-[#091428] to-[#0A1428] bg-gradient-to-r"
             />
-            <h1 className="m-1">LP:</h1>
-            <input
-              type="text"
-              id="leaguePoints"
-              name="leaguePoints"
-              value={props.leaguePoints}
-              className="w-10 h-8 text-center from-[#091428] to-[#0A1428] bg-gradient-to-r"
-            />
+            {formData.tier !== "UNRANKED" && (
+              <>
+                <h1 className="m-1">LP:</h1>
+                <input
+                  type="text"
+                  id="leaguePoints"
+                  name="leaguePoints"
+                  value={formData.leaguePoints ?? ""}
+                  onChange={handleInputChange}
+                  className="w-10 h-8 text-center from-[#091428] to-[#0A1428] bg-gradient-to-r"
+                />
+              </>
+            )}
           </div>
         </form>
       </div>

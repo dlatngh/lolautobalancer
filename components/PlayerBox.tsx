@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ParsedPlayer from "@/components/ParsedPlayer";
-import Delete from "./global/Delete";
+import Delete from "./ui/Delete";
 import {
   generatePlaceholder,
   parsePlayersFromChatLog,
@@ -12,7 +12,7 @@ import {
 import { ClientError } from "@/lib/utils/errors";
 import ErrorAlert from "./ErrorAlert";
 import Loading from "@/app/loading";
-import Button from "./global/Button";
+import PrimaryButton from "./ui/PrimaryButton";
 
 export default function PlayerBox() {
   const [players, setPlayers] = useState<string[]>([]);
@@ -41,7 +41,7 @@ export default function PlayerBox() {
     );
   };
 
-  const handleBalance = async () => {
+  const initializeLobby = async () => {
     const playerList = players;
     try {
       validatePlayerList(playerList);
@@ -136,7 +136,7 @@ export default function PlayerBox() {
             </div>
           </div>
           <div className="flex items-center justify-center py-10 pb-16">
-            <Button action={handleBalance} buttonName="Balance" />
+            <PrimaryButton action={initializeLobby} buttonName="Create Lobby" />
           </div>
           {isErrorOpen && (
             <ErrorAlert

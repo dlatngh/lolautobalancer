@@ -1,4 +1,4 @@
-import Divider from "@/components/global/Divider";
+import Divider from "@/components/ui/Divider";
 import PlayerBox from "@/components/PlayerBox";
 
 export default function Home() {

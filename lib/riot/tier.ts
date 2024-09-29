@@ -15,3 +15,30 @@ export enum Tiers {
 export function getTierValue(tier: keyof typeof Tiers): number {
   return Tiers[tier];
 }
+
+export function getTierEnum(tier: string): Tiers {
+  switch (tier.toUpperCase()) {
+    case "CHALLENGER":
+      return Tiers.CHALLENGER;
+    case "GRANDMASTER":
+      return Tiers.GRANDMASTER;
+    case "MASTER":
+      return Tiers.MASTER;
+    case "DIAMOND":
+      return Tiers.DIAMOND;
+    case "EMERALD":
+      return Tiers.EMERALD;
+    case "PLATINUM":
+      return Tiers.PLATINUM;
+    case "GOLD":
+      return Tiers.GOLD;
+    case "SILVER":
+      return Tiers.SILVER;
+    case "BRONZE":
+      return Tiers.BRONZE;
+    case "IRON":
+      return Tiers.IRON;
+    default:
+      return Tiers.UNRANKED;
+  }
+}

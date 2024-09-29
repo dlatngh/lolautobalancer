@@ -1,4 +1,4 @@
-import Divider from "@/components/global/Divider";
+import Divider from "@/components/ui/Divider";
 import Lobby from "@/components/lobby-setup/Lobby";
 
 export default function LobbySetUp() {
@@ -7,6 +7,11 @@ export default function LobbySetUp() {
       <div className="relative mx-auto flex max-w-3xl flex-col items-center px-6 text-center sm:pt-16 lg:px-0 justify-center">
         <div className="flex flex-col items-center text-5xl font-bold  lg:text-6xl font-beaufort text-[#C89B3C] ">
           <h1 className="uppercase">Confirm Lobby</h1>
+          <p className="mt-5 font-spiegel text-[#A09B8C] font-medium text-md sm:text-lg">
+            Confirm the information of each player here. We can only fetch the
+            peak rank of the current split. Note: These are not the balanced
+            teams yet.
+          </p>
         </div>
       </div>
       <Divider />
