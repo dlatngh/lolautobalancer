@@ -7,3 +7,18 @@ export enum Divisions {
 export function getDivisionValue(division: keyof typeof Divisions): number {
   return Divisions[division];
 }
+
+export function getDivisionEnum(division: string): Divisions | null {
+  switch (division.toUpperCase()) {
+    case "I":
+      return Divisions.I;
+    case "II":
+      return Divisions.II;
+    case "III":
+      return Divisions.III;
+    case "IV":
+      return Divisions.IV;
+    default:
+      return null;
+  }
+}
