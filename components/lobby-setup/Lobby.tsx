@@ -85,6 +85,10 @@ export default function Lobby() {
     }));
   };
 
+  const handleHomeNavigation = () => {
+    window.location.href = "/";
+  };
+
   return (
     <div className="flex flex-col w-full space-y-12">
       <div className="m-auto">
@@ -93,7 +97,7 @@ export default function Lobby() {
             <div
               key={i}
               className={`border-x border-[#C89B3C] m-auto 
-            `}
+          `}
             >
               <PlayerCard
                 playerName={player.playerName}
@@ -110,8 +114,18 @@ export default function Lobby() {
           ))}
         </div>
       </div>
-      <div className="flex items-center justify-center pb-16">
-        <PrimaryButton action={handleSubmit} buttonName="Balance" />
+      <div className="flex justify-center pb-10">
+        <div className="grid grid-cols-2 gap-4">
+          <div className="w-56 flex justify-center">
+            <PrimaryButton
+              action={handleHomeNavigation}
+              buttonName="New Lobby"
+            />
+          </div>
+          <div className="w-56 flex justify-center">
+            <PrimaryButton action={handleSubmit} buttonName="Confirm Lobby" />
+          </div>
+        </div>
       </div>
     </div>
   );
