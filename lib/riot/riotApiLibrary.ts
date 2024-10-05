@@ -13,7 +13,8 @@ type LeagueInfo = {
 };
 
 export async function getPuuidByAccount(playerName: string) {
-  const [gameName, tagLine] = splitPlayerName(playerName);
+  const [gameName, tagLine] = parsePlayerName(playerName);
+  console.log("hello", gameName, tagLine);
   const resByRiotId = await api.Account.getByRiotId(
     gameName,
     tagLine,
@@ -55,10 +56,21 @@ export async function getRankBySummonerId(summonerId: string) {
   return highestLeague;
 }
 
-function splitPlayerName(playerName: string): [string, string] {
+function parsePlayerName(playerName: string): [string, string] {
+  playerName = cleanPlayerName(playerName);
   const gameName = playerName.split("#")[0];
   const tagLine = playerName.split("#")[1];
   return [gameName, tagLine];
+}
+
+function cleanPlayerName(playerName: string): string {
+  return playerName
+    .split("")
+    .filter((char) => {
+      const charCode = char.charCodeAt(0);
+      return charCode !== 0x2066 && charCode !== 0x2069;
+    })
+    .join("");
 }
 
 function extractLeagueInfo(leagues: SummonerLeagueDto[]): LeagueInfo[] {
