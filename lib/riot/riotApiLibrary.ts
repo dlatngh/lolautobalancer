@@ -14,7 +14,6 @@ type LeagueInfo = {
 
 export async function getPuuidByAccount(playerName: string) {
   const [gameName, tagLine] = parsePlayerName(playerName);
-  console.log("hello", gameName, tagLine);
   const resByRiotId = await api.Account.getByRiotId(
     gameName,
     tagLine,
