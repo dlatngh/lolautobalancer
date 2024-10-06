@@ -42,7 +42,6 @@ export default function PlayerCard(props: PlayerCardProps) {
   });
 
   const previousFormData = useRef(formData);
-
   const nonDivisionTiers = ["CHALLENGER", "GRANDMASTER", "MASTER", "UNRANKED"];
   const PFP_URL = `https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${props.profileIconId}.png`;
 
