@@ -7,6 +7,7 @@ export class PlayerRatingCalculator {
   private division: Divisions | null;
   private leaguePoints: number;
   private summonerLevel: number;
+  private profileIconId: number;
 
   // N is non-linearity factor
   private readonly N = 1.7;
@@ -19,6 +20,7 @@ export class PlayerRatingCalculator {
       : null;
     this.leaguePoints = playerInfo.leaguePoints ?? 0;
     this.summonerLevel = playerInfo.summonerLevel;
+    this.profileIconId = playerInfo.profileIconId;
   }
 
   public getRating(): number {

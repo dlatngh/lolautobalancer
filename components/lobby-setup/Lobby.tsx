@@ -1,6 +1,6 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import PlayerCard from "./PlayerCard";
 import { useEffect, useState } from "react";
 import PrimaryButton from "../ui/PrimaryButton";
@@ -29,6 +29,7 @@ export default function Lobby() {
   const lobbyParams = useSearchParams();
   const lobbyString = lobbyParams.get("lobby");
   const [lobby, setLobby] = useState<Player[]>([]);
+  const router = useRouter();
 
   const [playerForms, setPlayerForms] = useState<
     Record<string, PlayerFormData>
@@ -52,6 +53,7 @@ export default function Lobby() {
         division: player.leagueInfo?.division || "",
         leaguePoints: player.leagueInfo?.leaguePoints || 0,
         summonerLevel: player.summonerInfo?.summonerLevel || 0,
+        profileIconId: player.summonerInfo?.profileIconId,
       };
       acc[player.playerName] = formData;
       return acc;
@@ -68,8 +70,18 @@ export default function Lobby() {
       if (!response.ok) {
         throw new Error("Failed to submit lobby data");
       }
-      const result = await response.json();
-      console.log("Success:", result);
+      const responseJson = await response.json();
+      console.log(responseJson);
+      const teams = responseJson.teams;
+      const res = await fetch("/api/teams", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ teams }),
+      });
+      if (!res.ok) {
+        throw new Error("Failed to submit teams");
+      }
+      router.push(`/teams`);
     } catch (error) {
       console.error("Error submitting lobby:", error);
     }

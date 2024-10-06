@@ -11,7 +11,7 @@ export type PlayerInfo = {
   division: string | null;
   leaguePoints: number | null;
   summonerLevel: number;
-  profileIconId?: number;
+  profileIconId: number;
 };
 
 type Lobby = {
@@ -28,17 +28,15 @@ const THRESHOLD = 10;
 export default function balanceLobby(lobby: Lobby): BalancedTeams {
   const playerRatingMap = calculatePlayerRatings(lobby);
   const ratings = Object.values(playerRatingMap);
-  console.log(playerRatingMap)
   const mean = calculateMean(ratings);
   const sd = calculateStandardDeviation(ratings, mean);
 
   const sortedPlayers = sortPlayersByRating(playerRatingMap);
-  console.log(sortedPlayers)
   const teams =
     sd > THRESHOLD
       ? snakeDraft(sortedPlayers, lobby)
       : oneByOneDraft(sortedPlayers, lobby);
-
+  console.log(teams)
   return teams;
 }
 
