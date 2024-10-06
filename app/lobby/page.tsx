@@ -8,9 +8,12 @@ export default function LobbySetUp() {
         <div className="flex flex-col items-center text-5xl font-bold  lg:text-6xl font-beaufort text-[#C89B3C] ">
           <h1 className="uppercase">Confirm Lobby</h1>
           <p className="mt-5 font-spiegel text-[#A09B8C] font-medium text-md sm:text-lg">
-            Confirm and adjust the information of each player here. We can only fetch the
-            peak rank of the current split. Note: These are not the balanced
-            teams yet.
+            Confirm and adjust the information of each player here. We can only
+            fetch the peak rank of the current split. Summoner Level is only
+            acconted for if player is unranked.
+          </p>
+          <p className="mt-5 font-spiegel text-[#A09B8C] font-medium text-md sm:text-lg">
+            Note: These are not the balanced teams yet.
           </p>
         </div>
       </div>

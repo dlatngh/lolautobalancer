@@ -23,7 +23,7 @@ export type BalancedTeams = {
   team2: { [playerName: string]: PlayerInfo }[];
 };
 
-const THRESHOLD = 10;
+const THRESHOLD = 5;
 
 export default function balanceLobby(lobby: Lobby): BalancedTeams {
   const playerRatingMap = calculatePlayerRatings(lobby);
@@ -36,7 +36,6 @@ export default function balanceLobby(lobby: Lobby): BalancedTeams {
     sd > THRESHOLD
       ? snakeDraft(sortedPlayers, lobby)
       : oneByOneDraft(sortedPlayers, lobby);
-  console.log(teams)
   return teams;
 }
 

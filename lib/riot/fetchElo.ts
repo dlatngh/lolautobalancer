@@ -35,6 +35,5 @@ export async function fetchElo(playerList: string[]) {
       }
     })
   );
-  console.log(playersData);
   return playersData;
 }

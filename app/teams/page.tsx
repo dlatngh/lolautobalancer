@@ -32,10 +32,6 @@ export default function Teams() {
       setRedTeam(teams.team2 ?? null);
     }
   }, [teams]);
-
-  console.log("Blue Team:", blueTeam);
-  console.log("Red Team:", redTeam);
-
   return (
     <div className="flex flex-col space-y-4 py-10">
       <div className="grid grid-cols-5 gap-x-5">

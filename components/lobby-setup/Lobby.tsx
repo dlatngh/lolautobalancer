@@ -71,7 +71,6 @@ export default function Lobby() {
         throw new Error("Failed to submit lobby data");
       }
       const responseJson = await response.json();
-      console.log(responseJson);
       const teams = responseJson.teams;
       const res = await fetch("/api/teams", {
         method: "POST",

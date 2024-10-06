@@ -80,7 +80,6 @@ function extractLeagueInfo(leagues: SummonerLeagueDto[]): LeagueInfo[] {
       }
       const tierKey = entry.tier.toUpperCase() as keyof typeof Tiers;
       const divisionKey = entry.rank as keyof typeof Divisions;
-
       return {
         tier: tierKey,
         division: divisionKey,
@@ -96,7 +95,6 @@ function getHighestLeague(leagueList: LeagueInfo[]): LeagueInfo {
   return leagueList.reduce((highest, current) => {
     const currentTierValue = getTierValue(current.tier);
     const highestTierValue = getTierValue(highest.tier);
-
     if (currentTierValue > highestTierValue) {
       return current;
     } else if (currentTierValue === highestTierValue) {
