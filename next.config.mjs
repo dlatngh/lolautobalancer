@@ -5,6 +5,7 @@ const nextConfig = {
       {
         hostname: "ddragon.leagueoflegends.com",
       },
+      { hostname: "raw.communitydragon.org" },
     ],
   },
   experimental: {
