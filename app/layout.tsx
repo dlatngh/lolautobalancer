@@ -17,7 +17,7 @@ export default function RootLayout({
       <body
         className={`bg-sr-art bg-no-repeat bg-cover bg-center bg-fixed antialiased`}
       >
-        <div className="flex flex-col items-center justify-center min-h-screen bg-[#010A13] bg-opacity-95">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-[#010A13] bg-opacity-65">
           {children}
         </div>
       </body>

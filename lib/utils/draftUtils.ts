@@ -1,12 +1,18 @@
 import { PlayerInfo } from "../balanceLobby";
 
-export function sortPlayersByRating(playerRatingMap: { [player: string]: number }): string[] {
+export function sortPlayersByRating(playerRatingMap: {
+  [player: string]: number;
+}): string[] {
   return Object.entries(playerRatingMap)
     .sort(([, ratingA], [, ratingB]) => ratingB - ratingA)
     .map(([playerName]) => playerName);
 }
 
-export function snakeDraft(sortedPlayers: string[], lobby: { [playerName: string]: PlayerInfo }) {
+export function snakeDraft(
+  sortedPlayers: string[],
+  lobby: { [playerName: string]: PlayerInfo }
+) {
+  console.log("Snake drafting...");
   const team1: { [playerName: string]: PlayerInfo }[] = [];
   const team2: { [playerName: string]: PlayerInfo }[] = [];
 
@@ -31,11 +37,15 @@ export function snakeDraft(sortedPlayers: string[], lobby: { [playerName: string
     isTeam1Turn = !isTeam1Turn;
     pickCount = 2;
   }
-
   return { team1, team2 };
 }
 
-export function oneByOneDraft(sortedPlayers: string[], lobby: { [playerName: string]: PlayerInfo }) {
+export function oneByOneDraft(
+  sortedPlayers: string[],
+  lobby: { [playerName: string]: PlayerInfo }
+) {
+  console.log("1:1 drafting...");
+
   const team1: { [playerName: string]: PlayerInfo }[] = [];
   const team2: { [playerName: string]: PlayerInfo }[] = [];
 

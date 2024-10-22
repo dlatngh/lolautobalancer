@@ -1,7 +1,7 @@
 import { Divisions } from "@/lib/riot/division";
 import { Tiers } from "@/lib/riot/tier";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface PlayerCardProps {
   playerName: string;
@@ -13,13 +13,23 @@ interface PlayerCardProps {
   onChange: (formData: FormDataType) => void;
 }
 
-interface FormDataType {
+export interface FormDataType {
   tier: string;
   division: string;
   leaguePoints: number | null;
   summonerLevel: number;
   profileIconId: number;
 }
+
+const areFormDataEqual = (a: FormDataType, b: FormDataType) => {
+  return (
+    a.tier === b.tier &&
+    a.division === b.division &&
+    a.leaguePoints === b.leaguePoints &&
+    a.summonerLevel === b.summonerLevel &&
+    a.profileIconId === b.profileIconId
+  );
+};
 
 export default function PlayerCard(props: PlayerCardProps) {
   const [version, setVersion] = useState("");
@@ -31,6 +41,7 @@ export default function PlayerCard(props: PlayerCardProps) {
     profileIconId: props.profileIconId,
   });
 
+  const previousFormData = useRef(formData);
   const nonDivisionTiers = ["CHALLENGER", "GRANDMASTER", "MASTER", "UNRANKED"];
   const PFP_URL = `https://ddragon.leagueoflegends.com/cdn/${version}/img/profileicon/${props.profileIconId}.png`;
 
@@ -53,13 +64,10 @@ export default function PlayerCard(props: PlayerCardProps) {
   }, []);
 
   useEffect(() => {
-    if (formData.tier === "UNRANKED") {
-      setFormData((prevData) => ({
-        ...prevData,
-        leaguePoints: null,
-      }));
+    if (!areFormDataEqual(formData, previousFormData.current)) {
+      previousFormData.current = formData;
+      props.onChange(formData);
     }
-    props.onChange(formData);
   }, [formData]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
