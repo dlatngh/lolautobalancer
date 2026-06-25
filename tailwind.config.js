@@ -12,7 +12,8 @@ module.exports = {
     },
     extend: {
       backgroundImage: {
-        "sr-art": "url('~/public/sr-art.jpg')",
+        "sr-art": "url('~/public/srbackground.png')",
+        "emerald-border": "url('~/public/rank/emerald.png')",
       },
     },
   },

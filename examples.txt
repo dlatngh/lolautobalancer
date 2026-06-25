@@ -1,84 +1,10 @@
-player One#Tag joined the lobby
-player Two#Tag joined the lobby
-random message
-fakePlayer#Tag joined the lobby
-player Three#Tag joined the lobby
-player Four#Tag joined the lobby
-player Five#Tag joined the lobby
-random message
-fakePlayer#Tag left the lobby
-player Six#Tag joined the lobby
-player Seven#Tag joined the lobby
-player Eight#Tag joined the lobby
-fakePlayer#Tag joined the lobby
-player Nine#Tag joined the lobby
-player Ten#Tag joined the lobby
-fakePlayer#Tag left the lobby
-random message
-
-JSON after riot API fetches
-{ 
-  "playerOne#Tag" :  {
-      "rank" : "bronze",
-      "division" : 3,
-      "lp" : 46,
-      "accountLevel" : 331
-  },
-  "playerTwo#Tag" :  {
-    "rank" : "emerald",
-    "division" : 2,
-    "lp" : 17,
-    "accountLevel" : 259
-  },
-  "playerThree#Tag" :  {
-    "rank" : "silver",
-    "division" : 1,
-    "lp" : 99,
-    "accountLevel" : 124
-  },
-}
-
-JSON after calculating rating:
-{ 
-  "playerOne#Tag" :  {
-      "rating" : 123
-      "rank" : "bronze",
-      "division" : 3,
-      "lp" : 46,
-      "accountLevel" : 331
-  },
-  "playerTwo#Tag" :  {
-    "rating" : 789
-    "rank" : "emerald",
-    "division" : 2,
-    "lp" : 17,
-    "accountLevel" : 259
-  },
-  "playerThree#Tag" :  {
-    "rating" : 456
-    "rank" : "silver",
-    "division" : 1,
-    "lp" : 99,
-    "accountLevel" : 124
-  },
-}
-
-JSON after making 2 teams:
-{
-  "teams": {
-    "blue": [
-      { "player": "playerOne#Tag" },
-      { "player": "playerTwo#Tag" },
-      { "player": "playerThree#Tag" },
-      { "player": "playerFour#Tag" },
-      { "player": "playerFive#Tag" }
-    ],
-    "red": [
-      { "player": "playerSix#Tag" },
-      { "player": "playerSeven#Tag" },
-      { "player": "playerEight#Tag" },
-      { "player": "playerNine#Tag" },
-      { "player": "playerTen#Tag" }
-    ]
-  }
-}
+⁦⁦soju lovewatcher⁩ #⁦muppt⁩⁩ joined the lobby
+⁦⁦hatsune miku⁩ #⁦yhl⁩⁩ joined the lobby
+⁦⁦AndyValeron⁩ #⁦Swag⁩⁩ joined the lobby
+⁦⁦MichaelSark⁩ #⁦hehe⁩⁩ joined the lobby
+⁦⁦rhemie⁩ #⁦80085⁩⁩ joined the lobby
+⁦⁦squid⁩ #⁦8008S⁩⁩ joined the lobby
+⁦⁦sparkLOL⁩ #⁦1V9⁩⁩ joined the lobby
+⁦⁦wari⁩ #⁦4272⁩⁩ joined the lobby
+⁦⁦Wink XY⁩ #⁦黄霄云⁩⁩ joined the lobby
+⁦⁦domothelama⁩ #⁦Mori⁩⁩ joined the lobby
