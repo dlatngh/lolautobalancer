@@ -1,4 +1,5 @@
 import { fetchElo } from "@/lib/riot/fetchElo";
+import { DEFAULT_RANK_MODE, RankMode } from "@/lib/riot/rankMode";
 import { NextResponse } from "next/server";
 
 type SummonerInfo = {
@@ -25,7 +26,8 @@ type Data = {
 };
 
 type Payload = {
-  [key: string]: string[];
+  playerList: string[];
+  rankMode?: RankMode;
 };
 
 export async function POST(request: Request) {
@@ -33,8 +35,9 @@ export async function POST(request: Request) {
   let response: Data;
   try {
     const res: Payload = await request.json();
-    playerList = res["playerList"];
-    const lobby = await fetchElo(playerList);
+    playerList = res.playerList;
+    const rankMode = res.rankMode ?? DEFAULT_RANK_MODE;
+    const lobby = await fetchElo(playerList, rankMode);
     response = {
       status: 200,
       message: "success",

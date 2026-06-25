@@ -42,3 +42,7 @@ export function getTierEnum(tier: string): Tiers {
       return Tiers.UNRANKED;
   }
 }
+
+export function isApexTier(tier: Tiers): boolean {
+  return tier >= Tiers.MASTER;
+}
