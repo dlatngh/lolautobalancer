@@ -1,17 +1,28 @@
 import { PlayerInfo } from "./balanceLobby";
+import {
+  getCumulativeFractionBelow,
+  getFractionOf,
+} from "./riot/rankDistribution";
 import { Divisions, getDivisionEnum } from "./riot/division";
-import { getTierEnum, Tiers } from "./riot/tier";
+import { getTierEnum, isApexTier, Tiers } from "./riot/tier";
+import { inverseNormalCDF } from "./utils/normalDistribution";
 
 export class PlayerRatingCalculator {
   private tier: Tiers;
   private division: Divisions | null;
   private leaguePoints: number;
   private summonerLevel: number;
-  private profileIconId: number;
 
-  // N is non-linearity factor
-  private readonly N = 1.7;
-  private readonly MAX_UNRANKED_RATING = Math.pow(Tiers.IRON, this.N) - 0.01;
+  private readonly EXPANSION_K = 0.9;
+  private readonly RATING_BASE = 793;
+  private readonly RATING_SCALE = 98;
+  private readonly APEX_LP_REFERENCE = 1000;
+  private readonly UNRANKED_Z_FLOOR = -7;
+  private readonly LEVEL_TAU = 120;
+  private readonly UNRANKED_MAX_LEVEL_PROGRESS = 0.97;
+  private readonly UNRANKED_Z_CEIL = inverseNormalCDF(
+    getCumulativeFractionBelow(Tiers.GOLD, Divisions.IV),
+  );
 
   constructor(playerInfo: PlayerInfo) {
     this.tier = getTierEnum(playerInfo.tier);
@@ -20,39 +31,50 @@ export class PlayerRatingCalculator {
       : null;
     this.leaguePoints = playerInfo.leaguePoints ?? 0;
     this.summonerLevel = playerInfo.summonerLevel;
-    this.profileIconId = playerInfo.profileIconId;
   }
 
   public getRating(): number {
-    return this.calculateFinalRating();
+    const skillZScore =
+      this.tier === Tiers.UNRANKED
+        ? this.unrankedZScore()
+        : this.rankedZScore();
+    return this.expand(skillZScore);
   }
 
-  private calculateFinalRating(): number {
-    let baseRating = 0;
-    if (this.tier === Tiers.UNRANKED) {
-      baseRating = this.calculateUnrankedRating();
-    } else {
-      baseRating = this.calculateRankedRating();
+  private rankedZScore(): number {
+    const cumulativeBelow = getCumulativeFractionBelow(
+      this.tier,
+      this.division,
+    );
+    const fractionOfRank = getFractionOf(this.tier, this.division);
+    const percentile =
+      cumulativeBelow + this.positionWithinRank() * fractionOfRank;
+    return inverseNormalCDF(percentile);
+  }
+
+  private positionWithinRank(): number {
+    const cap = 0.999;
+    if (isApexTier(this.tier)) {
+      return Math.min(this.leaguePoints / this.APEX_LP_REFERENCE, cap);
     }
-    return baseRating;
+    return Math.min(this.leaguePoints / 100, cap);
   }
 
-  private calculateRankedRating(): number {
-    let rating = 0;
-    rating += Math.pow(this.tier, this.N);
-
-    if (this.division !== null) {
-      rating += this.division * 0.1;
-      rating += this.leaguePoints / 1000;
-    } else {
-      rating += this.leaguePoints / 100;
-    }
-    return rating;
+  private unrankedZScore(): number {
+    const taperedProgress = 1 - Math.exp(-this.summonerLevel / this.LEVEL_TAU);
+    const levelProgress = Math.min(
+      taperedProgress,
+      this.UNRANKED_MAX_LEVEL_PROGRESS,
+    );
+    return (
+      this.UNRANKED_Z_FLOOR +
+      levelProgress * (this.UNRANKED_Z_CEIL - this.UNRANKED_Z_FLOOR)
+    );
   }
 
-  private calculateUnrankedRating(): number {
-    const maxLevel = 600;
-    const levelRating = Math.log10(this.summonerLevel) / Math.log10(maxLevel);
-    return levelRating * this.MAX_UNRANKED_RATING;
+  private expand(zScore: number): number {
+    return (
+      this.RATING_BASE + this.RATING_SCALE * Math.exp(this.EXPANSION_K * zScore)
+    );
   }
 }

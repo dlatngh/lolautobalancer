@@ -13,6 +13,7 @@ import { ClientError } from "@/lib/utils/errors";
 import ErrorAlert from "./ErrorAlert";
 import Loading from "@/app/loading";
 import PrimaryButton from "./ui/PrimaryButton";
+import { DEFAULT_RANK_MODE, RankMode } from "@/lib/riot/rankMode";
 
 export default function PlayerBox() {
   const [players, setPlayers] = useState<string[]>([]);
@@ -20,6 +21,7 @@ export default function PlayerBox() {
   const [error, setError] = useState<string | null>(null);
   const [isErrorOpen, setIsErrorOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [rankMode, setRankMode] = useState<RankMode>(DEFAULT_RANK_MODE);
   const router = useRouter();
 
   const handleChatLogChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -51,7 +53,7 @@ export default function PlayerBox() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ playerList }),
+        body: JSON.stringify({ playerList, rankMode }),
       });
 
       const response = await request.json();
@@ -73,6 +75,11 @@ export default function PlayerBox() {
       setLoading(false);
     }
   };
+
+  const rankModeOptions: { value: RankMode; label: string }[] = [
+    { value: "HIGHEST", label: "Highest (Solo/Flex)" },
+    { value: "SOLO_DUO", label: "Solo/Duo only" },
+  ];
 
   return (
     <div className="flex flex-col">
@@ -133,6 +140,31 @@ export default function PlayerBox() {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+          <div className="flex flex-col items-center justify-center space-y-2 pt-10">
+            <span className="uppercase font-bold font-beaufort text-[#A09B8C] text-sm">
+              Rank source
+            </span>
+            <div className="inline-flex border border-[#C89B3C] font-beaufort uppercase text-sm">
+              {rankModeOptions.map((option) => (
+                <button
+                  key={option.value}
+                  type="button"
+                  onClick={() => setRankMode(option.value)}
+                  className={`px-5 py-2 ${
+                    option.value === "SOLO_DUO"
+                      ? "border-l border-[#C89B3C]"
+                      : ""
+                  } ${
+                    rankMode === option.value
+                      ? "bg-[#C89B3C] text-[#091428]"
+                      : "text-[#C89B3C] hover:bg-[#1E2328]"
+                  }`}
+                >
+                  {option.label}
+                </button>
+              ))}
             </div>
           </div>
           <div className="flex items-center justify-center py-10 pb-16">

@@ -1,10 +1,5 @@
 import { PlayerRatingCalculator } from "./PlayerRatingCalculator";
-import {
-  snakeDraft,
-  oneByOneDraft,
-  sortPlayersByRating,
-} from "./utils/draftUtils";
-import { calculateMean, calculateStandardDeviation } from "./utils/mathUtils";
+import { PlayerMmr, pickBalancedSplit, TeamNames } from "./utils/teamPartition";
 
 export type PlayerInfo = {
   tier: string;
@@ -23,27 +18,45 @@ export type BalancedTeams = {
   team2: { [playerName: string]: PlayerInfo }[];
 };
 
-const THRESHOLD = 5;
+const BALANCE_TOLERANCE = 100;
 
 export default function balanceLobby(lobby: Lobby): BalancedTeams {
-  const playerRatingMap = calculatePlayerRatings(lobby);
-  const ratings = Object.values(playerRatingMap);
-  const mean = calculateMean(ratings);
-  const sd = calculateStandardDeviation(ratings, mean);
+  const playersWithMmr = toPlayerMmrList(lobby);
+  logPlayerRatings(playersWithMmr);
 
-  const sortedPlayers = sortPlayersByRating(playerRatingMap);
-  const teams =
-    sd > THRESHOLD
-      ? snakeDraft(sortedPlayers, lobby)
-      : oneByOneDraft(sortedPlayers, lobby);
-  return teams;
+  const split = pickBalancedSplit(playersWithMmr, BALANCE_TOLERANCE);
+  logTeamBalance(split, playersWithMmr);
+
+  return {
+    team1: split.team1.map((name) => ({ [name]: lobby[name] })),
+    team2: split.team2.map((name) => ({ [name]: lobby[name] })),
+  };
 }
 
-function calculatePlayerRatings(lobby: Lobby): { [player: string]: number } {
-  return Object.keys(lobby).reduce((ratingMap, player) => {
-    const playerInfo = lobby[player];
-    const playerRatingCalculator = new PlayerRatingCalculator(playerInfo);
-    ratingMap[player] = playerRatingCalculator.getRating();
-    return ratingMap;
-  }, {} as { [player: string]: number });
+function toPlayerMmrList(lobby: Lobby): PlayerMmr[] {
+  return Object.keys(lobby).map((name) => ({
+    name,
+    mmr: new PlayerRatingCalculator(lobby[name]).getRating(),
+  }));
+}
+
+function logPlayerRatings(players: PlayerMmr[]): void {
+  const ratings = players.map(
+    (player) => `${player.name}=${Math.round(player.mmr)}`
+  );
+  console.log("[balance] player MMR:", ratings.join(", "));
+}
+
+function logTeamBalance(split: TeamNames, players: PlayerMmr[]): void {
+  const mmrByName = new Map(players.map((player) => [player.name, player.mmr]));
+  const totalOf = (names: string[]) =>
+    names.reduce((sum, name) => sum + (mmrByName.get(name) ?? 0), 0);
+
+  const team1Total = Math.round(totalOf(split.team1));
+  const team2Total = Math.round(totalOf(split.team2));
+  console.log(
+    `[balance] team1=${team1Total} team2=${team2Total} gap=${Math.abs(
+      team1Total - team2Total
+    )}`
+  );
 }

@@ -59,6 +59,8 @@ export default function Lobby() {
       return acc;
     }, {} as Record<string, PlayerFormData>);
 
+    console.log("[lobby] submitting lobby:", lobbyData);
+
     try {
       const response = await fetch("/api/lobby/balance", {
         method: "POST",
@@ -72,14 +74,8 @@ export default function Lobby() {
       }
       const responseJson = await response.json();
       const teams = responseJson.teams;
-      const res = await fetch("/api/teams", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ teams }),
-      });
-      if (!res.ok) {
-        throw new Error("Failed to submit teams");
-      }
+      console.log("[lobby] received balanced teams:", teams);
+      sessionStorage.setItem("balancedTeams", JSON.stringify(teams));
       router.push(`/teams`);
     } catch (error) {
       console.error("Error submitting lobby:", error);
@@ -99,12 +95,11 @@ export default function Lobby() {
   return (
     <div className="flex flex-col w-full space-y-12">
       <div className="m-auto">
-        <div className="grid grid-cols-2 uppercase content-evenly bg-[#010A13] border-y border-[#C89B3C]">
+        <div className="grid grid-cols-2 uppercase bg-[#010A13] border-l border-t border-[#C89B3C]">
           {lobby.map((player, i) => (
             <div
               key={i}
-              className={`border-x border-[#C89B3C] m-auto 
-            `}
+              className="flex items-center border-r border-b border-[#C89B3C]"
             >
               <PlayerCard
                 playerName={player.playerName}

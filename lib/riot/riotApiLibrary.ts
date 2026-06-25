@@ -1,7 +1,7 @@
 import { Constants, LolApi, RiotApi } from "twisted";
-import { SummonerLeagueDto } from "twisted/dist/models-dto";
 import { getTierValue, Tiers } from "./tier";
 import { Divisions, getDivisionValue } from "./division";
+import { RankMode } from "./rankMode";
 
 const api = new RiotApi();
 const lolApi = new LolApi();
@@ -9,6 +9,15 @@ const lolApi = new LolApi();
 type LeagueInfo = {
   tier: keyof typeof Tiers;
   division: keyof typeof Divisions;
+  leaguePoints: number;
+};
+
+// The fields we read off each ranked league entry returned by Riot. Declared
+// locally so we do not depend on the twisted package's internal DTO exports.
+type RankedLeagueEntry = {
+  queueType: string;
+  tier: string;
+  rank: string;
   leaguePoints: number;
 };
 
@@ -30,29 +39,32 @@ export async function getSummonerByPuuid(puuid: string) {
   const response = resByPuuid.response;
   const playerMap = {
     summonerLevel: response.summonerLevel,
-    summonerId: response.id,
     profileIconId: response.profileIconId,
   };
   return playerMap;
 }
 
-export async function getRankBySummonerId(summonerId: string) {
-  const resBySummonerId = await lolApi.League.bySummoner(
-    summonerId,
+// Riot removed the encrypted summoner id from the Summoner-V4 by-puuid response,
+// so ranked data is fetched from the League-V4 by-puuid endpoint directly.
+export async function getRankByPuuid(puuid: string, rankMode: RankMode) {
+  const resByPuuid = await lolApi.League.byPUUID(
+    puuid,
     Constants.Regions.AMERICA_NORTH
   );
-  if (!resBySummonerId.response || resBySummonerId.response.length === 0) {
+  if (!resByPuuid.response || resByPuuid.response.length === 0) {
     console.debug("Summoner is not ranked.");
     return;
   }
-  const leagueList = extractLeagueInfo(resBySummonerId.response);
-  if (resBySummonerId.response.length === 1) {
-    console.debug("Summoner is only ranked in 1 SR mode.");
-    return leagueList[0];
+  const eligibleLeagues = extractLeagueInfo(resByPuuid.response, rankMode);
+  if (eligibleLeagues.length === 0) {
+    console.debug("Summoner has no rank for the selected mode.");
+    return;
   }
-  console.debug("Summoner has multiple ranks. Getting highest ranked league.");
-  const highestLeague = getHighestLeague(leagueList);
-  return highestLeague;
+  if (eligibleLeagues.length === 1) {
+    return eligibleLeagues[0];
+  }
+  console.debug("Summoner has multiple eligible ranks. Getting the highest.");
+  return getHighestLeague(eligibleLeagues);
 }
 
 function parsePlayerName(playerName: string): [string, string] {
@@ -72,10 +84,13 @@ function cleanPlayerName(playerName: string): string {
     .join("");
 }
 
-function extractLeagueInfo(leagues: SummonerLeagueDto[]): LeagueInfo[] {
+function extractLeagueInfo(
+  leagues: RankedLeagueEntry[],
+  rankMode: RankMode
+): LeagueInfo[] {
   const extractedLeagueInfo = leagues
     .map((entry) => {
-      if (!isSummonersRiftQueue(entry.queueType)) {
+      if (!isEligibleQueue(entry.queueType, rankMode)) {
         return null;
       }
       const tierKey = entry.tier.toUpperCase() as keyof typeof Tiers;
@@ -111,11 +126,11 @@ function getHighestLeague(leagueList: LeagueInfo[]): LeagueInfo {
   });
 }
 
-function isSummonersRiftQueue(queueType: string): boolean {
-  if (
-    queueType === Constants.Queues.RANKED_FLEX_SR ||
-    queueType === Constants.Queues.RANKED_SOLO_5x5
-  ) {
+function isEligibleQueue(queueType: string, rankMode: RankMode): boolean {
+  if (queueType === Constants.Queues.RANKED_SOLO_5x5) {
+    return true;
+  }
+  if (rankMode === "HIGHEST" && queueType === Constants.Queues.RANKED_FLEX_SR) {
     return true;
   }
   return false;
