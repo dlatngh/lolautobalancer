@@ -1,10 +1,8 @@
-import { Constants, LolApi, RiotApi } from "twisted";
+import { Constants } from "twisted";
+import { lolApi, riotApi } from "./riotClient";
 import { getTierValue, Tiers } from "./tier";
 import { Divisions, getDivisionValue } from "./division";
 import { RankMode } from "./rankMode";
-
-const api = new RiotApi();
-const lolApi = new LolApi();
 
 type LeagueInfo = {
   tier: keyof typeof Tiers;
@@ -21,14 +19,26 @@ type RankedLeagueEntry = {
   leaguePoints: number;
 };
 
+// A Riot ID always maps to the same PUUID, so the lookup is memoized for the
+// process lifetime. This both removes the duplicate lookup when one player is
+// resolved by the rank fetch and the role fetch, and spares the low-limit
+// Account-V1 endpoint on repeated lobbies.
+const puuidByPlayerName = new Map<string, string>();
+
 export async function getPuuidByAccount(playerName: string) {
+  const cachedPuuid = puuidByPlayerName.get(playerName);
+  if (cachedPuuid) {
+    return cachedPuuid;
+  }
   const [gameName, tagLine] = parsePlayerName(playerName);
-  const resByRiotId = await api.Account.getByRiotId(
+  const resByRiotId = await riotApi.Account.getByRiotId(
     gameName,
     tagLine,
     Constants.RegionGroups.AMERICAS
   );
-  return resByRiotId.response.puuid;
+  const puuid = resByRiotId.response.puuid;
+  puuidByPlayerName.set(playerName, puuid);
+  return puuid;
 }
 
 export async function getSummonerByPuuid(puuid: string) {
