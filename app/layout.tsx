@@ -18,7 +18,9 @@ export default function RootLayout({
         className={`bg-sr-art bg-no-repeat bg-cover bg-center bg-fixed antialiased`}
       >
         <div className="flex flex-col items-center justify-center min-h-screen bg-[#010A13] bg-opacity-65">
-          {children}
+          <div className="flex w-full flex-col items-center" style={{ zoom: 0.75 }}>
+            {children}
+          </div>
         </div>
       </body>
     </html>

@@ -45,6 +45,7 @@ export async function POST(request: Request) {
     };
     return NextResponse.json(response);
   } catch (error) {
+    console.error("[lobby/init] failed:", error);
     response = {
       status: 500,
       message: "Internal Server Error.",
