@@ -47,8 +47,8 @@ export default function PlayerBorder(props: PlayerProps) {
   }
 
   return (
-    <div className="flex m-auto border-4 border-[#785A28] px-5 py-6 outline-2 outline-gradient-to-r outline-black bg-[#010A13] bg-opacity-80 ">
-      <div className="inline-flex flex-col items-center justify-center text-white text-center max-w-64 max-h-96 m-auto py-5 mt-10">
+    <div className="flex m-auto w-64 border-4 border-[#785A28] px-5 py-6 outline-2 outline-gradient-to-r outline-black bg-[#010A13] bg-opacity-80 ">
+      <div className="flex w-full flex-col items-center justify-center text-white text-center max-h-96 m-auto py-5 mt-10">
         <div className="relative">
           <Image
             src={PFP_URL}
@@ -81,7 +81,7 @@ export default function PlayerBorder(props: PlayerProps) {
           height={125}
           className="-mt-2"
         />
-        <h1 className="font-beaufort text-xl text-[#C8AA6E]">
+        <h1 className="font-beaufort text-xl text-[#C8AA6E] w-full text-center truncate">
           {props.playerName}
         </h1>
       </div>
